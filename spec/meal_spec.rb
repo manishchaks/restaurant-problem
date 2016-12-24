@@ -3,19 +3,20 @@ describe Meal do
   describe "#initialize" do
     context "a vegetarian meal" do
       it "must be fish free" do
-        non_fish_free_meal = Hash.new
-        non_fish_free_meal[:is_vegetarian] = true
-        non_fish_free_meal[:is_gluten_free] = false
-        non_fish_free_meal[:is_fish_free] = false
-        meal = Meal.new(non_fish_free_meal)
-        expect(meal.options_hash_valid?).to eql(false)
-
         fish_free_meal = Hash.new
         fish_free_meal[:is_vegetarian] = true
         fish_free_meal[:is_gluten_free] = false
         fish_free_meal[:is_fish_free] = true
         meal = Meal.new(fish_free_meal)
         expect(meal.options_hash_valid?).to eql(true)
+      end
+      it "containing fish is invalid" do
+        non_fish_free_meal = Hash.new
+        non_fish_free_meal[:is_vegetarian] = true
+        non_fish_free_meal[:is_gluten_free] = false
+        non_fish_free_meal[:is_fish_free] = false
+        meal = Meal.new(non_fish_free_meal)
+        expect(meal.options_hash_valid?).to eql(false)
       end
     end
     context "a fish free meal" do
@@ -50,13 +51,6 @@ describe Meal do
         meal = Meal.new(regular_meal_hash)
         expect(meal.options_hash_valid?).to eql(true)
       end
-
-
-
-      # it "must not be gluten free" do
-      # end
-      # it "must not be vegetarian" do
-      # end
     end
     context "a meal which is regular and gluten free" do
       it "must be invalid" do
