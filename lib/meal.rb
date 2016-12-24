@@ -18,7 +18,6 @@ class Meal
   end
 
   def valid?
-
     valid = true
     # A regular meal must not be gluten free, fish free or vegetarian
     if(@options_hash[:regular])
@@ -33,4 +32,22 @@ class Meal
     end
     valid
   end
+
+
+  def self.bulk_create (options_hash, quantity)
+    # check before we begin to loop.
+
+    meal = Meal.new(options_hash)
+    raise "Invalid meal options specified" unless meal.valid?
+
+    # options are valid, proceed to create meals in bulk
+    meals = []
+    counter = 0
+    (1..quantity).each do |i|
+      meal = Meal.new(options_hash)
+      meals << meal
+    end
+    meals
+  end
+
 end

@@ -62,7 +62,6 @@ describe Order do
         restaurant = Restaurant.new(restaurant_with_4_star_rating)
         order.add_restaurant(restaurant)
 
-
         restaurant_with_5_star_rating = Hash.new
         restaurant_with_5_star_rating[:rating] = 5
         restaurant_with_5_star_rating[:name] = "five star restaurant"
@@ -80,6 +79,8 @@ describe Order do
         expect(order.restaurants.size).to eql(3)
 
         restaurants_by_rating = order.sort_restaurants_by_rating
+
+        #order is important.
         five_star_restaurant = restaurants_by_rating[0]
         four_star_restaurant = restaurants_by_rating[1]
         three_star_restaurant = restaurants_by_rating[2]
@@ -91,9 +92,43 @@ describe Order do
         expect(four_star_restaurant.name).to eql("four star restaurant")
 
         expect(three_star_restaurant.rating).to eql(3)
-        expect(three_star_restaurant.name).to eql("three star restaurant")
+        expect(three_star_restaurant.name).
+          to eql("three star restaurant")
 
       end
+
+      it "should be able to process orders given valid restaurants and order line items" do
+
+        #Team needs: total 50 meals including 5 vegetarians and 7 gluten free.
+        #Restaurants: Restaurant A has a rating of 5/5 and can serve 40 meals including 4 vegetarians,
+        #Restaurant B has a rating of 3/5 and can serve 100 meals including 20 vegetarians, and 20 gluten free.
+        #Expected meal orders: Restaurant A (4 vegetarian + 36 others), Restaurant B (1 vegetarian + 7 gluten free + 2 others)
+
+        # Line items
+        # 5 vegetarians
+        # 7 gluten-free
+        # 38 regular
+
+        order = Order.new
+        five_veg_line_items = Hash.new
+        five_veg_line_items[:vegetarian] = 5
+
+        seven_gluten_free_line_items = Hash.new
+        seven_gluten_free_line_items[:gluten_free] = 7
+
+        thirty_eight_regular_items = Hash.new
+        thirty_eight_regular_items[:regular] = 38
+
+
+        expect{order.add_line_item(five_veg_line_items)}.to_not raise_error
+        expect{order.add_line_item(seven_gluten_free_line_items)}.to_not raise_error
+        expect{order.add_line_item(thirty_eight_regular_items)}.to_not raise_error
+
+
+
+      end
+
+
     end
   end
 end

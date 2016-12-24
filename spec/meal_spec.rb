@@ -1,5 +1,19 @@
 require "meal"
 describe Meal do
+  describe ".bulk_create" do
+    context "bulk creation of meals (helper method" do
+      it "should be able to create meals in bulk" do
+        fish_free_meal = Hash.new
+        fish_free_meal[:is_vegetarian] = true
+        fish_free_meal[:gluten_free] = false
+        fish_free_meal[:fish_free] = true
+
+        meals = Meal.bulk_create(fish_free_meal,50)
+        expect(meals.size).to eql(50)
+      end
+    end
+  end
+
   describe "#initialize" do
     context "a vegetarian meal" do
       it "must be fish free" do

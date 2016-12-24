@@ -29,4 +29,8 @@ class Order
     @sorted_restaurants = @restaurants.sort_by { |restaurant| restaurant.rating }.reverse!
     @sorted_restaurants
   end
+
+  def process
+
+  end
 end
