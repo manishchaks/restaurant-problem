@@ -8,7 +8,7 @@ describe Meal do
         fish_free_meal[:is_gluten_free] = false
         fish_free_meal[:is_fish_free] = true
         meal = Meal.new(fish_free_meal)
-        expect(meal.options_hash_valid?).to eql(true)
+        expect(meal.valid?).to eql(true)
       end
       it "containing fish is invalid" do
         non_fish_free_meal = Hash.new
@@ -16,7 +16,7 @@ describe Meal do
         non_fish_free_meal[:is_gluten_free] = false
         non_fish_free_meal[:is_fish_free] = false
         meal = Meal.new(non_fish_free_meal)
-        expect(meal.options_hash_valid?).to eql(false)
+        expect(meal.valid?).to eql(false)
       end
     end
     context "a fish free meal" do
@@ -26,7 +26,7 @@ describe Meal do
         fish_free_vegetarian_meal_hash[:is_gluten_free] = false
         fish_free_vegetarian_meal_hash[:is_fish_free] = true
         meal = Meal.new(fish_free_vegetarian_meal_hash)
-        expect(meal.options_hash_valid?).to eql(true)
+        expect(meal.valid?).to eql(true)
       end
       it "may not be vegetarian" do
         fish_free_non_vegetarian_meal_hash = Hash.new
@@ -34,7 +34,7 @@ describe Meal do
         fish_free_non_vegetarian_meal_hash[:is_gluten_free] = false
         fish_free_non_vegetarian_meal_hash[:is_fish_free] = true
         meal = Meal.new(fish_free_non_vegetarian_meal_hash)
-        expect(meal.options_hash_valid?).to eql(true)
+        expect(meal.valid?).to eql(true)
       end
       # it "may be gluten free" do
       # end
@@ -49,7 +49,7 @@ describe Meal do
         regular_meal_hash[:is_gluten_free] = false
         regular_meal_hash[:is_fish_free] = false
         meal = Meal.new(regular_meal_hash)
-        expect(meal.options_hash_valid?).to eql(true)
+        expect(meal.valid?).to eql(true)
       end
     end
     context "a meal which is regular and gluten free" do
@@ -58,7 +58,7 @@ describe Meal do
         regular_meal_hash[:is_regular] = true
         regular_meal_hash[:is_gluten_free] = true
         meal = Meal.new(regular_meal_hash)
-        expect(meal.options_hash_valid?).to eql(false)
+        expect(meal.valid?).to eql(false)
       end
     end
     context "a meal which is regular and vegetarian" do
@@ -67,7 +67,7 @@ describe Meal do
         regular_meal_hash[:is_regular] = true
         regular_meal_hash[:is_vegetarian] = true
         meal = Meal.new(regular_meal_hash)
-        expect(meal.options_hash_valid?).to eql(false)
+        expect(meal.valid?).to eql(false)
       end
     end
     context "a meal which is regular and fish free" do
@@ -76,7 +76,7 @@ describe Meal do
         regular_meal_hash[:is_regular] = true
         regular_meal_hash[:is_fish_free] = true
         meal = Meal.new(regular_meal_hash)
-        expect(meal.options_hash_valid?).to eql(false)
+        expect(meal.valid?).to eql(false)
       end
     end
   end

@@ -22,9 +22,6 @@ class Restaurant
     if (@meals && @rating && @name) == nil
       return false
     end
-
     (@meals.size > 0) && ( @rating > 0 ) && !(@name.empty?)
-
   end
-
 end
