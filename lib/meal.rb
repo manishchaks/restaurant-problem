@@ -8,11 +8,17 @@ class Meal
       @options_hash[:description] = @options_hash[:description] || nil
   end
 
+  def self.acceptable_types
+    [:regular, :fish_free, :gluten_free, :vegetarian]
+  end
+
+
   def to_s
     @options_hash.to_s
   end
 
   def valid?
+
     valid = true
     # A regular meal must not be gluten free, fish free or vegetarian
     if(@options_hash[:regular])

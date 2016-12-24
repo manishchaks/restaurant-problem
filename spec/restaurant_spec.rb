@@ -14,9 +14,9 @@ describe Restaurant do
     context "a Restaurant without a rating" do
       it "must be invalid" do
         valid_meal = Hash.new
-        valid_meal[:is_vegetarian] = true
-        valid_meal[:is_gluten_free] = false
-        valid_meal[:is_fish_free] = true
+        valid_meal[:vegetarian] = true
+        valid_meal[:gluten_free] = false
+        valid_meal[:fish_free] = true
         meal = Meal.new(valid_meal)
         meals = Array.new
         meals << meal
@@ -32,9 +32,9 @@ describe Restaurant do
     context "a Restaurant without a name" do
       it "must be invalid" do
         valid_meal = Hash.new
-        valid_meal[:is_vegetarian] = true
-        valid_meal[:is_gluten_free] = false
-        valid_meal[:is_fish_free] = true
+        valid_meal[:vegetarian] = true
+        valid_meal[:gluten_free] = false
+        valid_meal[:fish_free] = true
         meal = Meal.new(valid_meal)
         meals = Array.new
         meals << meal
@@ -47,12 +47,13 @@ describe Restaurant do
         expect(restaurant.valid?).to eql(false)
       end
     end
+
     context "a Restaurant with  meals, rating and name" do
       it "is valid" do
         valid_meal = Hash.new
-        valid_meal[:is_vegetarian] = true
-        valid_meal[:is_gluten_free] = false
-        valid_meal[:is_fish_free] = true
+        valid_meal[:vegetarian] = true
+        valid_meal[:gluten_free] = false
+        valid_meal[:fish_free] = true
         meal = Meal.new(valid_meal)
         meals = Array.new
         meals << meal
