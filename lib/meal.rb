@@ -20,6 +20,17 @@ class Meal
 
   def options_hash_valid?
     # validate each key here
-    true
+    valid = true
+
+    # a vegetarian meal must mean it's also fish free
+    if(@options_hash[:is_vegetarian])
+      valid = @options_hash[:is_fish_free] == true ? true : false
+    end
+    valid
   end
 end
+
+# Tests
+# a vegetarian meal is also a fish free meal
+# a gluten-free meal may or may not be vegetarian
+# a fish-free meal may or may not be gluten free
