@@ -1,17 +1,11 @@
 class Meal
   def initialize (options_hash)
     @options_hash = options_hash
-    if options_hash_valid?
       @is_vegetarian = @options_hash[:is_vegetarian] || false
       @is_gluten_free = @options_hash[:is_gluten_free] || false
       @is_fish_free = @options_hash[:is_fish_free] || false
+      @is_regular = @options_hash[:is_regular]
       @description = @options_hash[:description]
-    else
-      # throw a proper exception here
-      puts "INVALID Hash"
-      return
-    end
-    # validate all of these.
   end
 
   def to_s
@@ -19,8 +13,15 @@ class Meal
   end
 
   def options_hash_valid?
-    # validate each key here
     valid = true
+
+    # A regular meal must not be gluten free, fish free or vegetarian
+    if(@options_hash[:is_regular])
+      valid = (!(@options_hash[:is_fish_free]) &&
+              !(@options_hash[:is_vegetarian]) &&
+               !(@options_hash[:is_gluten_free]))
+      return valid
+    end
 
     # a vegetarian meal must mean it's also fish free
     if(@options_hash[:is_vegetarian])
