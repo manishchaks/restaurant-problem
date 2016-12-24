@@ -1,6 +1,6 @@
 class Order
   def initialize
-    @orders = Array.new
+    @restaurants = Array.new
     @line_items = Array.new
     @acceptable_food_types = [:regular, :fish_free, :gluten_free, :vegetarian]
   end
@@ -11,10 +11,12 @@ class Order
   end
 
   def add_restaurant restaurant
+    raise "Supplied restaurant is invalid" unless restaurant.valid?
+    @restaurants << restaurants
   end
 
-  def orders
-    @orders
+  def restaurants
+    @restaurants
   end
 
   def line_items

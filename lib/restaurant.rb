@@ -18,7 +18,7 @@ class Restaurant
     @rating
   end
 
-  def options_hash_valid?
+  def valid?
     if (@meals && @rating && @name) == nil
       return false
     end

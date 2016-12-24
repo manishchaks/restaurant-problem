@@ -8,7 +8,7 @@ describe Restaurant do
         restaurant_options_hash[:name] = "test restaurant"
         restaurant = Restaurant.new(restaurant_options_hash)
 
-        expect(restaurant.options_hash_valid?).to eql(false)
+        expect(restaurant.valid?).to eql(false)
       end
     end
     context "a Restaurant without a rating" do
@@ -26,7 +26,7 @@ describe Restaurant do
         restaurant_options_hash[:meals] = meals
         restaurant = Restaurant.new(restaurant_options_hash)
 
-        expect(restaurant.options_hash_valid?).to eql(false)
+        expect(restaurant.valid?).to eql(false)
       end
     end
     context "a Restaurant without a name" do
@@ -44,7 +44,7 @@ describe Restaurant do
         restaurant_options_hash[:meals] = meals
         restaurant = Restaurant.new(restaurant_options_hash)
 
-        expect(restaurant.options_hash_valid?).to eql(false)
+        expect(restaurant.valid?).to eql(false)
       end
     end
     context "a Restaurant with  meals, rating and name" do
@@ -63,7 +63,7 @@ describe Restaurant do
         restaurant_options_hash[:meals] = meals
         restaurant = Restaurant.new(restaurant_options_hash)
 
-        expect(restaurant.options_hash_valid?).to eql(true)
+        expect(restaurant.valid?).to eql(true)
       end
     end
   end
