@@ -20,5 +20,4 @@ class Order
   def line_items
     @line_items
   end
-
 end
