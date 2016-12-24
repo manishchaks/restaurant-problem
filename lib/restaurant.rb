@@ -7,6 +7,7 @@ class Restaurant
   end
 
   def add_meal meal
+    raise "Invalid meal" unless meal.valid?
     @meals << meal
   end
 
@@ -18,10 +19,15 @@ class Restaurant
     @rating
   end
 
+  def name
+    @name
+  end
+
   def valid?
     if (@meals && @rating && @name) == nil
       return false
     end
     (@meals.size > 0) && ( @rating > 0 ) && !(@name.empty?)
   end
+
 end

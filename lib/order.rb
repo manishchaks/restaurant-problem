@@ -1,8 +1,9 @@
 require 'meal'
 class Order
   def initialize
-    @restaurants = Array.new
-    @line_items = Array.new
+    @restaurants = []
+    @line_items = []
+    @sorted_restaurants = []
   end
 
   def add_line_item line_item_as_hash
@@ -13,7 +14,7 @@ class Order
 
   def add_restaurant restaurant
     raise "Supplied restaurant is invalid" unless restaurant.valid?
-    @restaurants << restaurants
+    @restaurants << restaurant
   end
 
   def restaurants
@@ -22,5 +23,13 @@ class Order
 
   def line_items
     @line_items
+  end
+
+  def sort_restaurants_by_rating
+    # @restaurants.sort_by { |restaurant| restaurant.rating }.reverse!
+    puts "Rest by rating"
+
+    @sorted_restaurants = @restaurants.sort_by { |restaurant| restaurant.rating }.reverse!
+    @sorted_restaurants
   end
 end
