@@ -1,11 +1,9 @@
 class Restaurant
   def initialize (options_hash)
     @options_hash = options_hash
-    if options_hash_valid?
-      @meals = @options_hash[:meals] || []
-      @rating = @options_hash[:rating]
-      @name = @options_hash[:name]
-    end
+    @meals = @options_hash[:meals] || []
+    @rating = @options_hash[:rating]
+    @name = @options_hash[:name]
   end
 
   def add_meal meal
@@ -21,7 +19,12 @@ class Restaurant
   end
 
   def options_hash_valid?
-    true
+    if (@meals && @rating && @name) == nil
+      return false
+    end
+
+    (@meals.size > 0) && ( @rating > 0 ) && !(@name.empty?)
+
   end
 
 end
