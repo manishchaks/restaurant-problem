@@ -26,9 +26,6 @@ class Order
   end
 
   def sort_restaurants_by_rating
-    # @restaurants.sort_by { |restaurant| restaurant.rating }.reverse!
-    puts "Rest by rating"
-
     @sorted_restaurants = @restaurants.sort_by { |restaurant| restaurant.rating }.reverse!
     @sorted_restaurants
   end
