@@ -166,7 +166,7 @@ describe Order do
         #Add restaurants to order
         order.add_restaurant(restaurantA)
         order.add_restaurant(restaurantB)
-        #order.process
+        order.process
 
         # Construct Hash of expected results
         #Expected meal orders: Restaurant A (4 vegetarian + 36 others), Restaurant B (1 vegetarian + 7 gluten free + 2 others)
