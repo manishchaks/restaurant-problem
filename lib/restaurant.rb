@@ -37,7 +37,6 @@ class Restaurant
     found = []
     @meals.each do |meal|
       if ( meal.to_hash.select{|k,v| k == line_item.keys[0]}.has_value?(true))
-        puts meal.to_hash
         found << meal
         break if found.size == line_item.values[0]
       end
