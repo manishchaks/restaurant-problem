@@ -100,11 +100,7 @@ describe Order do
       it "should be able to process orders given valid restaurants and order line items" do
 
         #Team needs: total 50 meals including 5 vegetarians and 7 gluten free.
-        #Restaurants: Restaurant A has a rating of 5/5 and can serve 40 meals including 4 vegetarians,
-        #Restaurant B has a rating of 3/5 and can serve 100 meals including 20 vegetarians, and 20 gluten free.
-        #Expected meal orders: Restaurant A (4 vegetarian + 36 others), Restaurant B (1 vegetarian + 7 gluten free + 2 others)
-
-        # Line items
+        # Splitting into line items for Order
         # 5 vegetarians
         # 7 gluten-free
         # 38 regular
@@ -119,16 +115,65 @@ describe Order do
         thirty_eight_regular_items = Hash.new
         thirty_eight_regular_items[:regular] = 38
 
-
+        # Check and add line items to order
         expect{order.add_line_item(five_veg_line_items)}.to_not raise_error
         expect{order.add_line_item(seven_gluten_free_line_items)}.to_not raise_error
         expect{order.add_line_item(thirty_eight_regular_items)}.to_not raise_error
 
+        # create options for different types of meals
+        vegetarian_meal_options = Hash.new
+        vegetarian_meal_options[:vegetarian] = true
+        vegetarian_meal_options[:gluten_free] = false
+        vegetarian_meal_options[:fish_free] = true
+        vegetarian_meal_options[:regular] = false
+
+        gluten_free_meal_options = Hash.new
+        gluten_free_meal_options[:gluten_free] = true
+        gluten_free_meal_options[:vegetarian] = false
+        gluten_free_meal_options[:fish_free] = false
+        gluten_free_meal_options[:regular] = false
+
+        regular_meal_options = Hash.new
+        regular_meal_options[:regular] = true
+        regular_meal_options[:gluten_free] = false
+        regular_meal_options[:vegetarian] = false
+        regular_meal_options[:fish_free] = false
+
+
+        #Restaurant A has a rating of 5/5 and can serve 40 meals including 4 vegetarians,
+        restaurant_A_options = Hash.new
+        restaurant_A_options[:rating] = 5
+        restaurant_A_options[:name] = "RestaurantA"
+        restaurantA = Restaurant.new(restaurant_A_options)
+        restaurantA.add_meals(Meal.bulk_create(vegetarian_meal_options,4))
+        restaurantA.add_meals(Meal.bulk_create(regular_meal_options,36))
+
+        expect(restaurantA.meals.size).to eq(40)
+
+        #Restaurant B has a rating of 3/5 and can serve 100 meals
+        #including 20 vegetarians, and 20 gluten free.
+        restaurant_B_options = Hash.new
+        restaurant_B_options[:rating] = 3
+        restaurant_B_options[:name] = "RestaurantB"
+        restaurantB = Restaurant.new(restaurant_B_options)
+        restaurantB.add_meals(Meal.bulk_create(vegetarian_meal_options,20))
+        restaurantB.add_meals(Meal.bulk_create(gluten_free_meal_options,20))
+        restaurantB.add_meals(Meal.bulk_create(regular_meal_options,60))
+
+        expect(restaurantB.meals.size).to eq(100)
+
+
+        #Add restaurants to order
+        order.add_restaurant(restaurantA)
+        order.add_restaurant(restaurantB)
+        #order.process
+
+        # Construct Hash of expected results
+        #Expected meal orders: Restaurant A (4 vegetarian + 36 others), Restaurant B (1 vegetarian + 7 gluten free + 2 others)
+
 
 
       end
-
-
     end
   end
 end

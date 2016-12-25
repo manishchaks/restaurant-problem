@@ -31,6 +31,24 @@ class Order
   end
 
   def process
+    processed_hash =  create_skeleton_processed_hash
+    @line_items.each do |line_item|
+      puts line_item.keys[0]
+      puts line_item.values[0]
+    end
+  end
 
+  private
+  def create_skeleton_processed_hash
+    processed_hash = Hash.new { |hash, key| hash[key] = {} }
+    sort_restaurants_by_rating.each do | restaurant|
+      restaurant_hash = Hash.new
+      processed_hash[restaurant.name]
+      Meal.acceptable_types.each do |meal_type|
+        processed_hash[restaurant.name][meal_type] = 0
+      end
+    end
+    puts processed_hash
+    processed_hash
   end
 end

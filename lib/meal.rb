@@ -17,6 +17,11 @@ class Meal
     @options_hash.to_s
   end
 
+  def to_hash
+    @options_hash
+  end
+
+
   def valid?
     valid = true
     # A regular meal must not be gluten free, fish free or vegetarian

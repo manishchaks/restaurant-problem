@@ -4,7 +4,7 @@ describe Meal do
     context "bulk creation of meals (helper method" do
       it "should be able to create meals in bulk" do
         fish_free_meal = Hash.new
-        fish_free_meal[:is_vegetarian] = true
+        fish_free_meal[:vegetarian] = true
         fish_free_meal[:gluten_free] = false
         fish_free_meal[:fish_free] = true
 
@@ -18,7 +18,7 @@ describe Meal do
     context "a vegetarian meal" do
       it "must be fish free" do
         fish_free_meal = Hash.new
-        fish_free_meal[:is_vegetarian] = true
+        fish_free_meal[:vegetarian] = true
         fish_free_meal[:gluten_free] = false
         fish_free_meal[:fish_free] = true
         meal = Meal.new(fish_free_meal)
