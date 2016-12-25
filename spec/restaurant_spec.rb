@@ -121,6 +121,31 @@ describe Restaurant do
 
         expect(restaurant.process_line_item(line_item)).to eql(10)
       end
+      it "given a line item for 10 vegetarian items and given a restaurant with 5 vegetarian items and 50 regular items, it should be able to fullfill the 5 items" do
+        line_item = {:vegetarian => 10}
+
+        veg_meal = Hash.new
+        veg_meal[:vegetarian] = true
+        veg_meal[:gluten_free] = false
+        veg_meal[:fish_free] = true
+        veg_meal[:regular] = false
+        meals = Meal.bulk_create(veg_meal,5)
+
+        regular_meal = Hash.new
+        regular_meal[:vegetarian] = false
+        regular_meal[:gluten_free] = false
+        regular_meal[:fish_free] = false
+        regular_meal[:regular] = true
+        meals = meals + Meal.bulk_create(regular_meal,50)
+
+        restaurant_options_hash = Hash.new
+        restaurant_options_hash[:rating] = 4
+        restaurant_options_hash[:name] = "test restaurant"
+        restaurant_options_hash[:meals] = meals
+        restaurant = Restaurant.new(restaurant_options_hash)
+
+        expect(restaurant.process_line_item(line_item)).to eql(5)
+      end
     end
   end
 end
