@@ -32,16 +32,15 @@ class Order
 
   def process
     processed_hash =  create_skeleton_processed_hash
-    processed_items = 0
     sort_restaurants_by_rating.each do |restaurant|
+      processed_items = 0
       @line_items.each do |line_item|
         processed_items = restaurant.process_line_item(line_item)
         processed_hash[restaurant.name][line_item.keys[0]] =
-        processed_hash[restaurant.name][line_item.keys[0]] +
-        processed_items
+          processed_hash[restaurant.name][line_item.keys[0]] + processed_items
       end
+      remove_used_line_items(processed_hash[restaurant.name])
     end
-    puts processed_hash.to_s
   end
 
   private
@@ -54,7 +53,22 @@ class Order
         processed_hash[restaurant.name][meal_type] = 0
       end
     end
-    puts processed_hash
     processed_hash
+  end
+
+  def remove_used_line_items processed_hash
+    # Line items are    [{:vegetarian=>5}, {:gluten_free=>7}, {:regular=>38}]
+    # processed_hash is {:regular=>36, :fish_free=>0, :gluten_free=>0, :vegetarian=>4}
+    processed_hash.keys.each do |key|
+      value = processed_hash[key]
+      #puts "Key: #{key} / Value : #{value}"
+      @line_items.each do |line_item|
+        #puts "At line item" + line_item.to_s
+        if(line_item.has_key?(key))
+          line_item[key] = line_item[key] - value
+        end
+      end
+      #puts "updated line items: #{@line_items}"
+    end
   end
 end
