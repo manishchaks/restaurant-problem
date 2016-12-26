@@ -12,7 +12,6 @@ class Meal
     [:regular, :fish_free, :gluten_free, :vegetarian]
   end
 
-
   def to_s
     @options_hash.to_s
   end
@@ -20,7 +19,6 @@ class Meal
   def to_hash
     @options_hash
   end
-
 
   def valid?
     valid = true
@@ -38,13 +36,9 @@ class Meal
     valid
   end
 
-
   def self.bulk_create (options_hash, quantity)
-    # check before we begin to loop.
-
     meal = Meal.new(options_hash)
     raise "Invalid meal options specified" unless meal.valid?
-
     # options are valid, proceed to create meals in bulk
     meals = []
     counter = 0
@@ -54,5 +48,4 @@ class Meal
     end
     meals
   end
-
 end

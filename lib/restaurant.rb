@@ -1,4 +1,6 @@
 class Restaurant
+  attr_reader :rating, :name, :meals
+
   def initialize (options_hash)
     @options_hash = options_hash
     @meals = @options_hash[:meals] || []
@@ -19,18 +21,6 @@ class Restaurant
 
   def to_s
     @options_hash.to_s + @meals.to_s
-  end
-
-  def rating
-    @rating
-  end
-
-  def name
-    @name
-  end
-
-  def meals
-    @meals
   end
 
   def process_line_item line_item

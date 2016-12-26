@@ -1,5 +1,6 @@
 require 'meal'
 class Order
+  attr_reader :line_items, :restaurants
   def initialize
     @restaurants = []
     @line_items = []
@@ -15,14 +16,6 @@ class Order
   def add_restaurant restaurant
     raise "Supplied restaurant is invalid" unless restaurant.valid?
     @restaurants << restaurant
-  end
-
-  def restaurants
-    @restaurants
-  end
-
-  def line_items
-    @line_items
   end
 
   def sort_restaurants_by_rating
