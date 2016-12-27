@@ -1,4 +1,9 @@
-# restaurant-problem
+# Restaurant problem solution
+
+## Organization
+The "lib" folder contains the code. The "spec" has the RSpec specs.
+The order_spec.rb file has the main specs, but other classes are
+tested with their respective specs also.
 
 ## To run the specs:
 bundle exec rspec --format documentation
