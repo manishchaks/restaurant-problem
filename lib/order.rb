@@ -34,6 +34,7 @@ class Order
       end
       remove_used_line_items(processed_hash[restaurant.name])
     end
+    processed_hash
   end
 
   private

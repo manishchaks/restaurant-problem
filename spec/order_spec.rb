@@ -80,7 +80,7 @@ describe Order do
 
         restaurants_by_rating = order.sort_restaurants_by_rating
 
-        #order is important.
+        # order is important.
         five_star_restaurant = restaurants_by_rating[0]
         four_star_restaurant = restaurants_by_rating[1]
         three_star_restaurant = restaurants_by_rating[2]
@@ -94,11 +94,9 @@ describe Order do
         expect(three_star_restaurant.rating).to eql(3)
         expect(three_star_restaurant.name).
           to eql("three star restaurant")
-
       end
 
       it "should be able to process orders given valid restaurants and order line items" do
-
         #Team needs: total 50 meals including 5 vegetarians and 7 gluten free.
         # Splitting into line items for Order
         # 5 vegetarians
@@ -162,14 +160,22 @@ describe Order do
 
         expect(restaurantB.meals.size).to eq(100)
 
-
         #Add restaurants to order
         order.add_restaurant(restaurantA)
         order.add_restaurant(restaurantB)
-        order.process
 
-        # Construct Hash of expected results
-        #Expected meal orders: Restaurant A (4 vegetarian + 36 others), Restaurant B (1 vegetarian + 7 gluten free + 2 others)
+        expected_hash = {"RestaurantA"=>{:regular=>36,
+                                         :fish_free=>0,
+                                         :gluten_free=>0,
+                                         :vegetarian=>4},
+                         "RestaurantB"=>{:regular=>2,
+                                         :fish_free=>0,
+                                         :gluten_free=>7,
+                                         :vegetarian=>1}
+                        }
+
+        # Process the order and check output.
+        expect(order.process).to eql(expected_hash)
       end
     end
   end
